@@ -1,13 +1,32 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body.dark {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+body.dark .navbar {
+  background-color: #1f1f1f !important;
+}
+body.dark .form-control {
+  background-color: #333;
+  border-color: #555;
+  color: #eee;
+}
+.transition-all {
+  transition: all 0.3s ease !important;
+}
+.hover-shadow-lg:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Remove Chrome/Edge/Firefox default password reveal eye */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-password-reveal-button,
+input[type="password"]::--webkit-password-reveal-button {
+  display: none !important;
+}
+
+/* Optional: Extra safety for future browsers */
+input[type="password"]::-webkit-reveal {
+  display: none !important;
 }

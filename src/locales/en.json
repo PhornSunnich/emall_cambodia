@@ -1,0 +1,96 @@
+{
+  "home": "Home",
+  "products": "Products",
+  "stores": "Stores",
+  "realEstate": "Real Estate",
+  "about": "About Us",
+  "contact": "Contact Us",
+  "faq": "FAQ",
+
+  "search": "Search",
+  "searchPlaceholder": "Search products, stores...",
+
+  "cart": "Cart",
+  "favorites": "Favorites",
+  "checkout": "Checkout",
+  "payment": "Payment",
+  "addToCart": "Add to Cart",
+  "viewDetails": "View Details",
+  "buyNow": "Buy Now",
+
+  "login": "Login",
+  "register": "Register",
+  "profile": "My Profile",
+  "dashboard": "Dashboard",
+  "orders": "My Orders",
+  "addresses": "Addresses",
+  "logout": "Logout",
+
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode",
+
+  "switchToEnglish": "English",
+  "switchToKhmer": "ភាសាខ្មែរ",
+  "switchToChinese": "中文",
+
+  "welcome": "Welcome to Emall Cambodia",
+  "featuredProducts": "Featured Products",
+  "latestProducts": "Latest Products",
+  "onSale": "On Sale",
+  "flashSale": "Flash Sale",
+  "trending": "Trending Now",
+
+  "price": "Price",
+  "from": "From",
+  "to": "To",
+  "usd": "USD",
+  "khr": "KHR",
+  "currency": "Currency",
+
+  "payWith": "Pay with ABA, Wing, Pi Pay, Credit Card",
+  "securePayment": "100% Secure Payment",
+  "freeDelivery": "Free Delivery on orders over $50",
+  "support24": "24/7 Customer Support",
+  "easyReturns": "7-Day Easy Returns",
+
+  "contactUs": "Contact Us",
+  "followUs": "Follow Us",
+  "newsletter": "Subscribe to our newsletter",
+  "subscribe": "Subscribe",
+
+  "allRightsReserved": "© 2025 Emall Cambodia. All rights reserved.",
+
+  "pageNotFound": "Page Not Found",
+  "sorryPageNotExist": "Sorry, the page you are looking for does not exist.",
+  "backToHome": "Back to Home",
+  "loading": "Loading...",
+
+  "footerDescription": "Your trusted online shopping destination in Cambodia. Shop with confidence, delivered with care.",
+  "quickLinks": "Quick Links",
+  "support": "Support",
+  "shipping": "Shipping & Returns",
+  "privacy": "Privacy Policy",
+  "terms": "Terms & Conditions",
+
+  "noProductsFound": "No products found",
+  "emptyCart": "Your cart is empty",
+  "continueShopping": "Continue Shopping",
+  "total": "Total",
+  "subtotal": "Subtotal",
+  "shippingFee": "Shipping",
+  "orderSummary": "Order Summary",
+  "placeOrder": "Place Order",
+
+  "success": "Success",
+  "error": "Error",
+  "warning": "Warning",
+  "info": "Info",
+
+  "shopByCategory": "Shop by Category",
+  "viewAllProducts": "View All Products",
+  "bestSellers": "Best Sellers",
+
+  "my_favorites": "My Favorites",
+  "no_favorites_yet": "No favorites yet",
+  "favorites_empty_message": "Products you love will appear here"
+}
