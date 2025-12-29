@@ -65,14 +65,9 @@ function Login() {
       return;
     }
 
-    // NEW: Email verification check
-    if (!user.verified) {
-      setError("Please verify your email first. Check your inbox for the verification link.");
-      setLoading(false);
-      return;
-    }
+    // REMOVED: Email verification check (user.verified)
 
-    // SUCCESS
+    // SUCCESSFUL LOGIN
     login(user);
 
     if (rememberMe) {
@@ -115,7 +110,7 @@ function Login() {
                 </Form.Label>
                 <Form.Control
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder="phornsunnich@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -146,7 +141,7 @@ function Login() {
                     className="position-absolute top-50 end-0 translate-middle-y bg-transparent border-0 text-success d-flex align-items-center justify-content-center"
                     style={{ zIndex: 10, width: "50px", height: "50px", right: "10px" }}
                   >
-                    {/* {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />} */}
+                    
                   </button>
                 </div>
               </Form.Group>
@@ -172,7 +167,7 @@ function Login() {
                 disabled={loading}
                 className="w-100 rounded-pill py-3 fw-bold text-white border-0 shadow-lg"
                 style={{
-                  background: loading ? "#0f662fff" : "linear-gradient(135deg, #1DB954, #0f662fff)",
+                  background: loading ? "#0f662f" : "linear-gradient(135deg, #1DB954, #0f662f)",
                   cursor: loading ? "not-allowed" : "pointer",
                 }}
               >

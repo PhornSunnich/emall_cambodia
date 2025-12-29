@@ -34,7 +34,7 @@ function ForgotPassword() {
   // ←←← REPLACE THESE 3 VALUES FROM YOUR EMAILJS DASHBOARD ←←←
   const EMAILJS_USER_ID = "9dgvJAqiwb_ab86Z3";     // ← Your Public Key
   const EMAILJS_SERVICE_ID = "service_7n86ypc";               // ← Your Service ID
-  const EMAILJS_TEMPLATE_ID = "cdxheyk";             // ← Your Template ID
+  const EMAILJS_TEMPLATE_ID = "template_66pf4ya";             // ← Your Template ID
   // ←←← REPLACE ABOVE 3 LINES ONLY ←←←
 
   // Initialize EmailJS once
@@ -171,7 +171,7 @@ function ForgotPassword() {
                     <div className="position-relative">
                       <Form.Control
                         type="email"
-                        placeholder="sunnich@gmail.com"
+                        placeholder="phornsunnich@gmail.com"
                         value={email}
                         onChange={(e) => { setEmail(e.target.value); setEmailTouched(true); }}
                         onBlur={() => setEmailTouched(true)}

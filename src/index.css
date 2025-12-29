@@ -30,3 +30,4 @@ input[type="password"]::--webkit-password-reveal-button {
 input[type="password"]::-webkit-reveal {
   display: none !important;
 }
+

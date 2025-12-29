@@ -23,7 +23,7 @@ import {
   FaExclamationCircle,
   FaCheckCircle,
 } from "react-icons/fa";
-import emailjs from "@emailjs/browser";
+import { useApp } from "../context/AppContext";
 
 function Register() {
   const [name, setName] = useState("");
@@ -49,11 +49,7 @@ function Register() {
 
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-
-  // Paste your real EmailJS keys here
-  const EMAILJS_USER_ID = "9dgvJAqiwb_ab86Z3"; // ← Your real Public Key
-  const EMAILJS_SERVICE_ID = "service_7n86ypc"; // ← Your Gmail service
-  const EMAILJS_TEMPLATE_ID = "cdxheyk"; // ← Replace with your real template ID
+  const { login } = useApp(); // For instant login after register
 
   const defaultAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(
     name.trim() || "User"
@@ -91,6 +87,7 @@ function Register() {
     if (/\d/.test(password)) score++;
     if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) score++;
     setStrength((score / 5) * 100);
+
     if (score <= 2) {
       setStrengthLabel("Weak");
       setStrengthColor("#dc3545");
@@ -133,12 +130,13 @@ function Register() {
     reader.readAsDataURL(file);
   };
 
-  const handleRegister = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
     setLoading(true);
 
+    // Basic validation
     if (!name.trim() || !email.trim() || !password || !confirmPassword) {
       setError("Please fill in all fields.");
       setLoading(false);
@@ -160,6 +158,7 @@ function Register() {
       return;
     }
 
+    // Save user
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const newUser = {
       id: Date.now().toString(),
@@ -167,42 +166,21 @@ function Register() {
       email: email.toLowerCase(),
       password: password,
       avatar: avatar || null,
-      verified: false, // ← Email not verified yet
       createdAt: new Date().toISOString(),
+      // No more verified field → instant access
     };
+
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
-    // Generate verification token & link
-    const verifyToken = btoa(email + Date.now());
-    const verifyLink = `${
-      window.location.origin
-    }/verify?token=${verifyToken}&email=${encodeURIComponent(email)}`;
+    // Auto login
+    login(newUser);
 
-    const templateParams = {
-      name: name.trim(),
-      reset_link: verifyLink, // ← correct! matches {{reset_link}} in the template
-      to_email: email,
-    };
+    setSuccess("Account created successfully! Welcome to EMALL");
 
-    try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        EMAILJS_USER_ID
-      );
-
-      setSuccess(
-        "Registration successful! Check your email to verify your account."
-      );
-      setTimeout(() => navigate("/login"), 4000);
-    } catch (err) {
-      console.error("EmailJS error:", err);
-      setError("Failed to send verification email. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    setTimeout(() => {
+      navigate("/", { replace: true });
+    }, 1800);
   };
 
   return (
@@ -230,7 +208,11 @@ function Register() {
 
           <Card.Body className="p-5">
             {error && (
-              <Alert variant="danger" className="rounded-4">
+              <Alert
+                variant="danger"
+                className="rounded-4 d-flex align-items-center"
+              >
+                <FaExclamationCircle className="me-2" size={20} />
                 {error}
               </Alert>
             )}
@@ -241,7 +223,7 @@ function Register() {
             )}
 
             <Form onSubmit={handleRegister}>
-              {/* Avatar - unchanged */}
+              {/* Avatar Upload */}
               <div className="text-center mb-5">
                 <div className="position-relative d-inline-block">
                   <Image
@@ -280,7 +262,6 @@ function Register() {
                 />
                 <p className="text-muted mt-3 small">
                   Click to upload photo (optional)
-                  <br />
                 </p>
               </div>
 
@@ -300,7 +281,7 @@ function Register() {
                 />
               </Form.Group>
 
-              {/* Email - unchanged */}
+              {/* Email */}
               <Form.Group className="mb-4">
                 <Form.Label className="fw-bold text-success">
                   <FaEnvelope className="me-2" /> Email Address
@@ -356,7 +337,8 @@ function Register() {
                 )}
               </Form.Group>
 
-              {/* Password & Confirm - unchanged */}
+              {/* Password */}
+              {/* Password & Confirm Password - unchanged, eye icons fixed */}
               <Form.Group className="mb-3">
                 <Form.Label className="fw-bold text-success">
                   <FaLock className="me-2" /> Password
@@ -374,10 +356,15 @@ function Register() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="position-absolute top-50 end-0 translate-middle-y bg-transparent border-0 text-success"
-                    style={{ zIndex: 10, right: "18px" }}
+                    className="position-absolute top-50 end-0 translate-middle-y bg-transparent border-0 text-success d-flex align-items-center justify-content-center"
+                    style={{
+                      zIndex: 10,
+                      width: "50px",
+                      height: "50px",
+                      right: "10px",
+                    }}
                   >
-             
+                    
                   </button>
                 </div>
               </Form.Group>
@@ -404,15 +391,20 @@ function Register() {
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="position-absolute top-50 translate-middle-y bg-transparent border-0 text-success"
-                    style={{ zIndex: 10, right: "54px" }}
+                    className="position-absolute top-50 translate-middle-y bg-transparent border-0 text-success d-flex align-items-center justify-content-center"
+                    style={{
+                      zIndex: 10,
+                      width: "50px",
+                      height: "50px",
+                      right: "54px",
+                    }}
                   >
- 
+                   
                   </button>
                   {confirmPassword && (
                     <div
                       className="position-absolute top-50 translate-middle-y"
-                      style={{ zIndex: 10, right: "16px" }}
+                      style={{ right: "16px" }}
                     >
                       {passwordsMatch ? (
                         <FaCheckCircle className="text-success" size={23} />
@@ -438,7 +430,7 @@ function Register() {
                 )}
               </Form.Group>
 
-              {/* Password Strength Bar */}
+              {/* Strength Bar */}
               {password && (
                 <div className="mb-4">
                   <div className="d-flex justify-content-between align-items-center mb-2">
@@ -450,18 +442,17 @@ function Register() {
                   <ProgressBar
                     now={strength}
                     style={{ height: "10px", borderRadius: "10px" }}
-                    className="shadow-sm"
                   >
                     <ProgressBar
                       animated
                       now={strength}
-                      style={{ background: strengthColor || "#dc3545" }}
+                      style={{ background: strengthColor }}
                     />
                   </ProgressBar>
                 </div>
               )}
 
-              {/* Submit Button */}
+              {/* Submit */}
               <Button
                 type="submit"
                 disabled={
@@ -479,16 +470,8 @@ function Register() {
                     emailTaken ||
                     !passwordsMatch ||
                     strength < 80
-                      ? "#0f662fff"
-                      : "linear-gradient(135deg, #1DB954, #0f662fff)",
-                  cursor:
-                    loading ||
-                    !emailValid ||
-                    emailTaken ||
-                    !passwordsMatch ||
-                    strength < 80
-                      ? "not-allowed"
-                      : "pointer",
+                      ? "#0f662f"
+                      : "linear-gradient(135deg, #1DB954, #0f662f)",
                 }}
               >
                 {loading ? (
